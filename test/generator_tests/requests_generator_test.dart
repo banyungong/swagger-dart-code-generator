@@ -62,5 +62,23 @@ void main() {
       expect(result,
           contains('Future<chopper.Response<CarModel>> carsMultipartPost'));
     });
+
+    test('Should not generate parameters with empty names', () {
+      final result = SwaggerRequestsGenerator(GeneratorOptions(
+        inputFolder: '',
+        outputFolder: '',
+        ignoreHeaders: false,
+      )).generate(
+        swaggerRoot: root,
+        className: 'CarsService',
+        fileName: 'cars_service',
+        allEnums: [],
+      );
+
+      // Verify that the problematic parameter (only has "in": "query" but no name)
+      // doesn't generate an invalid parameter like @Query('') Object? $,
+      expect(result, isNot(contains("@Query('') Object? \$")));
+      expect(result, isNot(contains("@Query('')")));
+    });
   });
 }

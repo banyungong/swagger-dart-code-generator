@@ -778,6 +778,7 @@ class SwaggerRequestsGenerator extends SwaggerGeneratorBase {
             ignoreHeaders ? swaggerParameter.inParameter != kHeader : true)
         .where((swaggerParameter) => swaggerParameter.inParameter != kCookie)
         .where((swaggerParameter) => swaggerParameter.inParameter.isNotEmpty)
+        .where((swaggerParameter) => swaggerParameter.name.isNotEmpty)
         .map(
           (swaggerParameter) => Parameter(
             (p) => p
